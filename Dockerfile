@@ -86,12 +86,17 @@ RUN echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "extras;android;m2repository" && \
 # NOTE: Package "google-cloud-sdk" has been renamed to "google-cloud-cli".
 # Version pinning has been removed because old versions are periodically
 # removed from Google's apt repository.
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - && \
-        sudo add-apt-repository "deb https://packages.cloud.google.com/apt cloud-sdk main" && \
-        sudo apt-get update && sudo apt-get install -y google-cloud-cli && \
-        sudo gcloud config set --installation component_manager/disable_update_check true && \
-        sudo gcloud config set disable_usage_reporting false
-
+RUN ARCH=$(uname -m) && \
+    case "$ARCH" in \
+        x86_64) GCLOUD_ARCH="x86_64" ;; \
+        aarch64) GCLOUD_ARCH="arm" ;; \
+        *) echo "Unsupported arch: $ARCH" >&2; exit 1 ;; \
+    esac && \
+    curl -sSL --retry 3 -o /tmp/gcloud.tar.gz \
+        "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-${GCLOUD_ARCH}.tar.gz" && \
+    sudo tar -xzf /tmp/gcloud.tar.gz -C /usr/local && \
+    rm /tmp/gcloud.tar.gz
+    
 RUN curl -o ${ANDROID_HOME}/platforms/android-34/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-34/android.jar
 RUN curl -o ${ANDROID_HOME}/platforms/android-35/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-35/android.jar
 RUN curl -o ${ANDROID_HOME}/platforms/android-36/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-36/android.jar
