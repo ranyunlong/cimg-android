@@ -1,6 +1,6 @@
 # vim:set ft=dockerfile:
 
-FROM registry.cn-hangzhou.aliyuncs.com/geckoai/cimg:2025.02.4
+FROM cimg:2025.02.3
 
 LABEL maintainer="Community & Partner Engineering Team <community-partner@circleci.com>"
 
