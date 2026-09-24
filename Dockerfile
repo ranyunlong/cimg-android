@@ -1,6 +1,6 @@
 # vim:set ft=dockerfile:
 
-FROM geckoai/cimg:2025.02.6
+FROM cimg:2025.02.6
 
 LABEL maintainer="Community & Partner Engineering Team <community-partner@circleci.com>"
 
