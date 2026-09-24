@@ -66,6 +66,7 @@ RUN SDK_TOOLS_URL="https://dl.google.com/android/repository/commandlinetools-lin
 
 RUN echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "tools" && \
     echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "platform-tools" && \
+    echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "build-tools;36.0.0" && \
     echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "build-tools;35.0.0" && \
     echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "build-tools;34.0.0"
 RUN echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "platforms;android-34" && \
@@ -89,3 +90,4 @@ RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key ad
 
 RUN curl -o ${ANDROID_HOME}/platforms/android-34/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-34/android.jar
 RUN curl -o ${ANDROID_HOME}/platforms/android-35/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-35/android.jar
+RUN curl -o ${ANDROID_HOME}/platforms/android-35/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-36/android.jar
