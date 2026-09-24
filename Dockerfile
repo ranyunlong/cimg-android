@@ -97,6 +97,6 @@ RUN ARCH=$(uname -m) && \
     sudo tar -xzf /tmp/gcloud.tar.gz -C /usr/local && \
     rm /tmp/gcloud.tar.gz
     
-RUN curl -o ${ANDROID_HOME}/platforms/android-34/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-34/android.jar
-RUN curl -o ${ANDROID_HOME}/platforms/android-35/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-35/android.jar
-RUN curl -o ${ANDROID_HOME}/platforms/android-36/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-36/android.jar
+RUN curl -o ${ANDROID_HOME}/platforms/android-34/android.jar http://mingqi-package.mingqi-tech.cn/aosp/34/android.jar
+RUN curl -o ${ANDROID_HOME}/platforms/android-35/android.jar http://mingqi-package.mingqi-tech.cn/aosp/35/android.jar
+RUN curl -o ${ANDROID_HOME}/platforms/android-36/android.jar http://mingqi-package.mingqi-tech.cn/aosp/36/android.jar
