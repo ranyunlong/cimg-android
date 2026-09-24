@@ -64,8 +64,7 @@ RUN SDK_TOOLS_URL="https://dl.google.com/android/repository/commandlinetools-lin
         rm /tmp/cmdline-tools.zip && \
         mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest
 
-RUN echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "tools" && \
-    echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "platform-tools" && \
+RUN echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "platform-tools" && \
     echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "build-tools;36.0.0" && \
     echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "build-tools;35.0.0" && \
     echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "build-tools;34.0.0"
@@ -82,7 +81,7 @@ RUN echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "extras;android;m2repository" && \
 
 # Install Google Cloud CLI
 # Latest gcloud version can be found here: https://cloud.google.com/sdk/docs/release-notes
-ENV GCLOUD_VERSION=453.0.0-0
+ENV GCLOUD_VERSION=462.0.0-0
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - && \
         sudo add-apt-repository "deb https://packages.cloud.google.com/apt cloud-sdk main" && \
         sudo apt-get update && sudo apt-get install -y google-cloud-sdk=${GCLOUD_VERSION} && \
