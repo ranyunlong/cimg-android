@@ -64,6 +64,8 @@ RUN SDK_TOOLS_URL="https://dl.google.com/android/repository/commandlinetools-lin
         rm /tmp/cmdline-tools.zip && \
         mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest
 
+# NOTE: "tools" package is obsolete and no longer available via sdkmanager.
+# It has been removed to avoid "Failed to find package 'tools'" error.
 RUN echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "platform-tools" && \
     echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "build-tools;36.0.0" && \
     echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "build-tools;35.0.0" && \
@@ -81,13 +83,15 @@ RUN echo y | ${CMDLINE_TOOLS_ROOT}/sdkmanager "extras;android;m2repository" && \
 
 # Install Google Cloud CLI
 # Latest gcloud version can be found here: https://cloud.google.com/sdk/docs/release-notes
-ENV GCLOUD_VERSION=462.0.0-0
+# NOTE: Package "google-cloud-sdk" has been renamed to "google-cloud-cli".
+# Version pinning has been removed because old versions are periodically
+# removed from Google's apt repository.
 RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - && \
         sudo add-apt-repository "deb https://packages.cloud.google.com/apt cloud-sdk main" && \
-        sudo apt-get update && sudo apt-get install -y google-cloud-sdk=${GCLOUD_VERSION} && \
+        sudo apt-get update && sudo apt-get install -y google-cloud-cli && \
         sudo gcloud config set --installation component_manager/disable_update_check true && \
         sudo gcloud config set disable_usage_reporting false
 
 RUN curl -o ${ANDROID_HOME}/platforms/android-34/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-34/android.jar
 RUN curl -o ${ANDROID_HOME}/platforms/android-35/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-35/android.jar
-RUN curl -o ${ANDROID_HOME}/platforms/android-35/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-36/android.jar
+RUN curl -o ${ANDROID_HOME}/platforms/android-36/android.jar https://raw.githubusercontent.com/Reginer/aosp-android-jar/main/android-36/android.jar
